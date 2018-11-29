@@ -1,10 +1,17 @@
 package com.revature.eval.java.core;
 
+import java.lang.reflect.Array;
 import java.time.temporal.Temporal;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
 public class EvaluationService {
+
+	/*
+	 * Checklist: 1. DONE 2. DONE 3. DONE 4. DONE 5. DONE 6. 7. 8. 9. 10. 11. 12. 13. 14. 15.
+	 * 16. 17. 18. 19. 20. DONE
+	 */
 
 	/**
 	 * 1. Without using the StringBuilder or StringBuffer class, write a method that
@@ -15,9 +22,10 @@ public class EvaluationService {
 	 */
 	public String reverse(String string) {
 		char[] reversed = new char[string.length()];
-		for (int i = reversed.length - 1, j=0; i >= 0; i--, j++) {
+		for (int i = reversed.length - 1, j = 0; i >= 0; i--, j++) {
 			reversed[j] = string.charAt(i);
 		}
+		// System.out.println(reversed);
 		return new String(reversed);
 	}
 
@@ -30,8 +38,13 @@ public class EvaluationService {
 	 * @return
 	 */
 	public String acronym(String phrase) {
-		// TODO Write an implementation for this method declaration
-		return null;
+		String acrynom = "";
+		phrase = phrase.replaceAll("[,.]", "");
+		for (String s : phrase.split("[ -]")) {
+			acrynom += s.charAt(0);
+		}
+		String word = acrynom.toUpperCase();
+		return word;
 	}
 
 	/**
@@ -84,18 +97,27 @@ public class EvaluationService {
 		}
 
 		public boolean isEquilateral() {
-			// TODO Write an implementation for this method declaration
-			return false;
+			if (this.sideOne == this.sideTwo && this.sideOne == this.sideThree && this.sideTwo == this.sideThree) {
+				return true;
+			} else {
+				return false;
+			}
 		}
 
 		public boolean isIsosceles() {
-			// TODO Write an implementation for this method declaration
-			return false;
+			if (this.sideOne == this.sideTwo || this.sideOne == this.sideThree || this.sideTwo == this.sideThree) {
+				return true;
+			} else {
+				return false;
+			}
 		}
 
 		public boolean isScalene() {
-			// TODO Write an implementation for this method declaration
-			return false;
+			if (this.sideOne != this.sideTwo && this.sideOne != this.sideThree && this.sideTwo != this.sideThree) {
+				return true;
+			} else {
+				return false;
+			}
 		}
 
 	}
@@ -116,8 +138,31 @@ public class EvaluationService {
 	 * @return
 	 */
 	public int getScrabbleScore(String string) {
-		// TODO Write an implementation for this method declaration
-		return 0;
+		int count = 0;
+		char[] array = string.toCharArray();
+		for (int i = 0; i < string.length(); ++i) {
+			if (array[i] == 'A' || array[i] == 'a' || array[i] == 'E' || array[i] == 'e' || array[i] == 'I'
+					|| array[i] == 'i' || array[i] == 'O' || array[i] == 'o' || array[i] == 'U' || array[i] == 'u'
+					|| array[i] == 'L' || array[i] == 'l' || array[i] == 'N' || array[i] == 'n' || array[i] == 'R'
+					|| array[i] == 'r' || array[i] == 'S' || array[i] == 's' || array[i] == 'T' || array[i] == 't') {
+				count += 1;
+			} else if (array[i] == 'D' || array[i] == 'd' || array[i] == 'G' || array[i] == 'g') {
+				count += 2;
+			} else if (array[i] == 'B' || array[i] == 'b' || array[i] == 'C' || array[i] == 'c' || array[i] == 'M'
+					|| array[i] == 'm' || array[i] == 'P' || array[i] == 'p') {
+				count += 3;
+			} else if (array[i] == 'F' || array[i] == 'f' || array[i] == 'H' || array[i] == 'h' || array[i] == 'V'
+					|| array[i] == 'v' || array[i] == 'W' || array[i] == 'w' || array[i] == 'Y' || array[i] == 'y') {
+				count += 4;
+			} else if (array[i] == 'K' || array[i] == 'k') {
+				count += 5;
+			} else if (array[i] == 'J' || array[i] == 'j' || array[i] == 'X' || array[i] == 'x') {
+				count += 8;
+			} else {
+				count += 10;
+			}
+		}
+		return count;
 	}
 
 	/**
@@ -151,9 +196,27 @@ public class EvaluationService {
 	 * Note: As this exercise only deals with telephone numbers used in
 	 * NANP-countries, only 1 is considered a valid country code.
 	 */
-	public String cleanPhoneNumber(String string) {
-		// TODO Write an implementation for this method declaration
-		return null;
+	public static String cleanPhoneNumber(String string) throws IllegalArgumentException{
+		if(string.contains("[A-Za-z]+")) {
+			string = "1";
+		}
+		String result = "0";
+		String string1 = string.replaceAll("[^0-9]", "");
+		if(string1.charAt(0) == 1) {
+			
+		}
+		if(string1.length() > 10 || string1.length() < 10){
+			string1 = "1";
+		}
+		char test = string1.charAt(0);
+		if(test == '1') {
+			result = string1.substring(1);
+		}
+		if(result != "0") {
+			throw new IllegalArgumentException("That is Illegal");
+		} else {
+			return string1;
+		}
 	}
 
 	/**
@@ -266,7 +329,7 @@ public class EvaluationService {
 	 * @return
 	 */
 	public boolean isArmstrongNumber(int input) {
-		// TODO Write an implementation for this method declaration
+		
 		return false;
 	}
 
@@ -536,9 +599,23 @@ public class EvaluationService {
 	 * @param string
 	 * @return
 	 */
-	public int solveWordProblem(String string) {
-		// TODO Write an implementation for this method declaration
-		return 0;
+	public static int solveWordProblem(String string) {
+		int problem = 0;
+		String string1 = string.replaceAll("[A-Za-z?]", "");
+		string1 = string1.trim().replaceAll(" +", " ");
+		String string2[] = string1.split(" ");
+		int x = Integer.parseInt(string2[0]);
+		int y = Integer.parseInt(string2[1]);
+		if (string.contains("plus")) {
+			problem = x + y;
+		} else if (string.contains("minus")) {
+			problem = x - y;
+		} else if (string.contains("multiplied")) {
+			problem = x * y;
+		} else {
+			problem = x / y;
+		}
+		return problem;
 	}
 
 }
