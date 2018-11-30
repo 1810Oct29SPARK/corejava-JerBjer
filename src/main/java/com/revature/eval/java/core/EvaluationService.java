@@ -3,14 +3,16 @@ package com.revature.eval.java.core;
 import java.lang.reflect.Array;
 import java.time.temporal.Temporal;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 
 public class EvaluationService {
 
 	/*
-	 * Checklist: 1. DONE 2. DONE 3. DONE 4. DONE 5. DONE 6. 7. 8. 9. 10. 11. 12. 13. 14. 15.
-	 * 16. 17. 18. 19. 20. DONE
+	 * Checklist: 1. DONE 2. DONE 3. DONE 4. DONE 5. DONE 6. DONE 7. 8. DONE 9. 10. 11.
+	 * 12. 13. 14. 15. 16. 17. 18. 19. 20. DONE
 	 */
 
 	/**
@@ -196,25 +198,26 @@ public class EvaluationService {
 	 * Note: As this exercise only deals with telephone numbers used in
 	 * NANP-countries, only 1 is considered a valid country code.
 	 */
-	public static String cleanPhoneNumber(String string) throws IllegalArgumentException{
-		if(string.contains("[A-Za-z]+")) {
+	public static String cleanPhoneNumber(String string) throws IllegalArgumentException {
+		if (string.contains("[A-Za-z!@#%$*&]+")) {
 			string = "1";
 		}
 		String result = "0";
 		String string1 = string.replaceAll("[^0-9]", "");
-		if(string1.charAt(0) == 1) {
-			
+		if (string1.charAt(0) == 1) {
+			result = "1";
 		}
-		if(string1.length() > 10 || string1.length() < 10){
+		if (string1.length() > 11 || string1.length() < 10) {
 			string1 = "1";
 		}
 		char test = string1.charAt(0);
-		if(test == '1') {
+		if (test == '1') {
 			result = string1.substring(1);
 		}
-		if(result != "0") {
+		if (result != "0") {
 			throw new IllegalArgumentException("That is Illegal");
 		} else {
+			// System.out.println(string1);
 			return string1;
 		}
 	}
@@ -229,8 +232,18 @@ public class EvaluationService {
 	 * @return
 	 */
 	public Map<String, Integer> wordCount(String string) {
-		// TODO Write an implementation for this method declaration
-		return null;
+		HashMap<String, Integer> maps = new HashMap<String, Integer>();
+		string = string.replaceAll("[\n]", "");
+		String[] array = string.split("[ ,]");
+		for (int i = 0; i < array.length; ++i) {
+			Integer c = maps.get(array[i]);
+			if (maps.get(array[i]) == null) {
+				maps.put(array[i], 1);
+			} else {
+				maps.put(array[i], ++c);
+			}
+		}
+		return maps;
 	}
 
 	/**
@@ -272,7 +285,7 @@ public class EvaluationService {
 		private List<T> sortedList;
 
 		public int indexOf(T t) {
-			// TODO Write an implementation for this method declaration
+			// int x = t.binarySearch(t,6);
 			return 0;
 		}
 
@@ -309,8 +322,32 @@ public class EvaluationService {
 	 * @return
 	 */
 	public String toPigLatin(String string) {
-		// TODO Write an implementation for this method declaration
-		return null;
+		String[] phrase = string.split(" ");
+		String value = "";
+		for (int i = 0; i < phrase.length; ++i) {
+			boolean flag = true;
+			while (flag) {
+				if (phrase[i].charAt(0) == 'u' && phrase[i].charAt(phrase[i].length() - 1) == 'q') {
+					char x = phrase[i].charAt(0);
+					phrase[i] = phrase[i].substring(1);
+					phrase[i] += x;
+				} else {
+					if (phrase[i].charAt(0) != 'a' && phrase[i].charAt(0) != 'e' && phrase[i].charAt(0) != 'i'
+							&& phrase[i].charAt(0) != 'o' && phrase[i].charAt(0) != 'u') {
+						char x = phrase[i].charAt(0);
+						phrase[i] = phrase[i].substring(1);
+						phrase[i] += x;
+					} else {
+						phrase[i] += "ay";
+						flag = false;
+					}
+				}
+			}
+			value += phrase[i] + " ";
+		}
+		String value1 = value.trim();
+		System.out.println(value1);
+		return value1;
 	}
 
 	/**
@@ -329,7 +366,7 @@ public class EvaluationService {
 	 * @return
 	 */
 	public boolean isArmstrongNumber(int input) {
-		
+
 		return false;
 	}
 
